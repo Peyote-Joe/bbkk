@@ -1,5 +1,6 @@
 class DABRadio: IMedia
 {
+
     const float SEEK_STEP = 0.5f;
     const float MAX_FRQUENCY = 108f;
     const float MIN_FRQUENCY = 87.5f;
