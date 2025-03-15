@@ -1,23 +1,30 @@
 using System.Runtime.CompilerServices;
 
-class CDPlayer: IMedia
+class CDPlayer : IMedia
 {
-    private ushort Track {get; set;}
-    private MediaState State {get; set;}
-    public bool Medialn => CompatDisc != null;
-    Disc CompatDisc;
+    private ushort Track { get; set; }
+    private MediaState State { get; set; }
+    public bool MediaIn => CompatDisc != null;
+    Disc CompatDisc = new Disc();
     public string mensaje;
 
+
+    public void InsertMedia(Disc media)
+    {
+        CompatDisc = media;
+    }
     public string MessageToDisplay
     {
-        get {
-            if (Medialn== true) // medialn??
+        get
+        {
+            if (MediaIn == true) // medialn??
             {
-                mensaje = State switch{
-                MediaState.Playing => $"PLAYING... {CompatDisc.ToString()} Track {Track} - ",
-                MediaState.Stopped => $"STOPPED... {CompatDisc.ToString()}",
-                MediaState.Paused => $"PAUSED... {CompatDisc.ToString()} Track {Track} - ",
-                _ => throw new NotImplementedException()
+                mensaje = State switch
+                {
+                    MediaState.Playing => $"PLAYING... {CompatDisc.ToString()} Track {CompatDisc.NombreCancion(Track)} - ",
+                    MediaState.Stopped => $"STOPPED... {CompatDisc.ToString()}",
+                    MediaState.Paused => $"PAUSED... {CompatDisc.ToString()} Track {CompatDisc.NombreCancion(Track)} - ",
+                    _ => throw new NotImplementedException()
                 };
             }
             else
@@ -29,34 +36,45 @@ class CDPlayer: IMedia
         }
     }
 
-    public CDPlayer(){
-        this.CompatDisc = CompatDisc;
+    public CDPlayer()
+    {
+        this.CompatDisc = new Disc();
     }
 
-    public void InsertMedia(Disc media){}
 
-    public bool ExtractMedia(){
-        return true;
+
+    public bool ExtractMedia()
+    {
+        if (MediaIn)
+        {
+            compactDisc = null;
+            State = MediaState.Stopped;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void Play()
     {
         if (State == MediaState.Stopped)
         {
-            Track = 1;
+            Track = 0;
         }
-        Track = Track;
+
 
     }
 
     public void Stop()
     {
-        throw new NotImplementedException();
+        State = MediaState.Stopped;
     }
 
     public void Pause()
     {
-        if(State == MediaState.Playing)
+        if (State == MediaState.Playing)
         {
             State = MediaState.Paused;
         }
@@ -68,19 +86,58 @@ class CDPlayer: IMedia
 
     public void Next()
     {
-        if(State == MediaState.Playing)
+        if (CompatDisc.NumTracks == Track)
         {
-            //Track = (ushort)(Track +1);
-        }
-        else if (State == MediaState.Paused)
+            Track = 0;
+        }else
         {
-            Track = (ushort)(Track +1);
+            Track = (ushort)(Track + 1);
         }
+
+        if (State == MediaState.Stopped)
+        {
+            State = MediaState.Playing;            
+        }
+        /* if (State == MediaState.Playing)
+         {
+             if (CompatDisc.NumTracks == Track)
+             {
+                 Track = 0;
+
+             }
+             else
+             {
+                 Track = (ushort)(Track + 1);
+             }
+         }
+         else if (State == MediaState.Paused)
+         {
+             if (CompatDisc.NumTracks == Track)
+             {
+                 Track = 0;
+                 State = MediaState.Playing;
+             }
+             else
+             {
+                 Track = (ushort)(Track + 1);
+             }
+         }*/
 
     }
 
     public void Previous()
     {
-        throw new NotImplementedException();
+        if (0 == Track)
+        {
+            Track = CompatDisc.NumTracks;
+        }else
+        {
+            Track = (ushort)(Track - 1);
+        }
+
+        if (State == MediaState.Stopped)
+        {
+            State = MediaState.Playing;            
+        }
     }
 }

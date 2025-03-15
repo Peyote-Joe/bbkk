@@ -13,7 +13,9 @@ class Disc
         Songs = songs;
     }
 
-    public string NombreCancion(in int song) => (song >= 0 && song < Songs.Length) ? Songs[song] : "Unknown"; // revisar funcionamiento ???
+    public string NombreCancion(in int song){ 
+       reurn (song >= 0 && song < Songs.Length) ? Songs[song] : "Unknown"; // revisar funcionamiento ???
+    }
 
     public override string ToString()
     {

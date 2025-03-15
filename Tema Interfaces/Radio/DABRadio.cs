@@ -28,12 +28,18 @@ class DABRadio: IMedia
         {
             Frecuency = MIN_FRQUENCY;
         }
-        Frecuency = Frecuency;
+        if (State == MediaState.Pause)
+        {
+            State = MediaState.Play;
+            System.Console.WriteLine(MessageToDisplay);
+        }
+        
     }
 
     public void Stop()
     {
-        throw new NotImplementedException();
+        State = MediaState.Stopped;
+        System.Console.WriteLine(MessageToDisplay);
     }
 
     public void Pause()
@@ -45,28 +51,37 @@ class DABRadio: IMedia
         else if(State == MediaState.Paused)
         {
             State = MediaState.Playing;
-            Frecuency = Frecuency;
+            
         }
     }
 
     public void Next()
     {
-        if (State == MediaState.Playing)
+        if (Frecuency == MAX_FRQUENCY)
         {
+            Frecuency = MIN_FRQUENCY;
+        }
+        else
             Frecuency += SEEK_STEP;
 
-            if (Frecuency == MAX_FRQUENCY)
-            {
-                Frecuency = MIN_FRQUENCY;
-            }
+        if (State == MediaState.Pause)
+        {
+            State = MediaState.Playing;
         }
     }
 
     public void Previous()
     {
-        if (State == MediaState.Playing)
+        if (Frecuency == MIN_FRQUENCY)
         {
+            Frecuency = MAX_FRQUENCY;
+        }
+        else
             Frecuency -= SEEK_STEP;
+
+        if (State == MediaState.Pause)
+        {
+            State = MediaState.Playing;
         }
     }
 }
