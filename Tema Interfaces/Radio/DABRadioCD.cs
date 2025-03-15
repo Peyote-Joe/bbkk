@@ -6,7 +6,7 @@ class DABRadioCD: IMedia
     private DABRadio sintonizador;
 
     public string MessageToDisplay{
-        get { return $"MODO: niidea \n STATE{ActiveDevice}... {reproductor.ToString()}. Track "; }
+        get { return $"MODO: nidea \n STATE{ActiveDevice}... {reproductor.ToString()}. Track "; }
     }
 
     public DABRadioCD(){}

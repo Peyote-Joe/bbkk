@@ -29,9 +29,9 @@ class DABRadio: IMedia
         {
             Frecuency = MIN_FRQUENCY;
         }
-        if (State == MediaState.Pause)
+        if (State == MediaState.Paused)
         {
-            State = MediaState.Play;
+            State = MediaState.Playing;
             System.Console.WriteLine(MessageToDisplay);
         }
         
@@ -65,7 +65,7 @@ class DABRadio: IMedia
         else
             Frecuency += SEEK_STEP;
 
-        if (State == MediaState.Pause)
+        if (State == MediaState.Paused)
         {
             State = MediaState.Playing;
         }
@@ -80,7 +80,7 @@ class DABRadio: IMedia
         else
             Frecuency -= SEEK_STEP;
 
-        if (State == MediaState.Pause)
+        if (State == MediaState.Paused)
         {
             State = MediaState.Playing;
         }

@@ -4,14 +4,14 @@ class CDPlayer : IMedia
 {
     private ushort Track { get; set; }
     private MediaState State { get; set; }
-    public bool MediaIn => CompatDisc != null;
-    Disc CompatDisc = new Disc();
+    public bool MediaIn => CompactDisc != null;
+    Disc CompactDisc;
     public string mensaje;
 
 
     public void InsertMedia(Disc media)
     {
-        CompatDisc = media;
+        CompactDisc = media;
     }
     public string MessageToDisplay
     {
@@ -21,9 +21,9 @@ class CDPlayer : IMedia
             {
                 mensaje = State switch
                 {
-                    MediaState.Playing => $"PLAYING... {CompatDisc.ToString()} Track {CompatDisc.NombreCancion(Track)} - ",
-                    MediaState.Stopped => $"STOPPED... {CompatDisc.ToString()}",
-                    MediaState.Paused => $"PAUSED... {CompatDisc.ToString()} Track {CompatDisc.NombreCancion(Track)} - ",
+                    MediaState.Playing => $"PLAYING... {CompactDisc.ToString()} Track {CompactDisc.NombreCancion(Track)} - ",
+                    MediaState.Stopped => $"STOPPED... {CompactDisc.ToString()}",
+                    MediaState.Paused => $"PAUSED... {CompactDisc.ToString()} Track {CompactDisc.NombreCancion(Track)} - ",
                     _ => throw new NotImplementedException()
                 };
             }
@@ -38,7 +38,7 @@ class CDPlayer : IMedia
 
     public CDPlayer()
     {
-        this.CompatDisc = new Disc();
+        //this.CompactDisc = new Disc();
     }
 
 
@@ -47,7 +47,7 @@ class CDPlayer : IMedia
     {
         if (MediaIn)
         {
-            compactDisc = null;
+            CompactDisc = null;
             State = MediaState.Stopped;
             return true;
         }
@@ -86,7 +86,7 @@ class CDPlayer : IMedia
 
     public void Next()
     {
-        if (CompatDisc.NumTracks == Track)
+        if (CompactDisc.NumTracks == Track)
         {
             Track = 0;
         }else
@@ -129,7 +129,7 @@ class CDPlayer : IMedia
     {
         if (0 == Track)
         {
-            Track = CompatDisc.NumTracks;
+            Track =(ushort) CompactDisc.NumTracks;
         }else
         {
             Track = (ushort)(Track - 1);
