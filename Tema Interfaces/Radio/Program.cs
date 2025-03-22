@@ -6,6 +6,10 @@
         "Wanna Be Startin' Somethin", "Baby Be Mine", "The Girl Is Mine", "Thriller", "Beat It",
         "Billie Jean", "Human Nature", "P.Y.T. (Pretty Young Thing)", "The Lady in My Life"};
         Disc thriller = new Disc("Thriller", "Michael Jackson", canciones);
+
+        int numero = 7;
+
+        
         DABRadioCD radioCD = new DABRadioCD();
         ConsoleKeyInfo tecla = new ConsoleKeyInfo();
         do

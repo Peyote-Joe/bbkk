@@ -22,3 +22,6 @@ class Disc
         return $"Album: {Album} Artist: {Artist}.";
     }
 }
+class MiClase{
+    
+}
