@@ -10,8 +10,6 @@ public class ComparadorDescendente : IComparer<int>
 class Polinomio
 {
     private SortedDictionary<int, int> Monomios { get; set; }
-
-
     public Polinomio(string polinomio)
     {
         Monomios = new SortedDictionary<int, int>( new ComparadorDescendente());
